@@ -209,16 +209,16 @@
 <p>重启vncserver后可连接桌面</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vncserver</span> -kill :<span class="number">1</span></span><br><span class="line"><span class="attribute">vncserver</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/channing/channing/undefined/3860da3/1.png" alt="1"></p>
+<p><img src="channing/undefined/3860da3/1.png" alt="1"></p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在刚开始配置好后发现连接不上，进行问题排查</p>
 <ul>
 <li><p>检查端口占用情况<br><code>netstat -lp|grep -i vnc</code></p>
-<p><img src="/channing/channing/undefined/3860da3/2.png" alt="2"></p>
+<p><img src="channing/undefined/3860da3/2.png" alt="2"></p>
 <p>端口监听正常，启动了两个桌面实例，这里也有两个对应的5901和5902端口监听</p>
 </li>
 <li><p>检查xface运行状况</p>
 <p><code>ps -A | grep xfce4</code></p>
-<p><img src="/channing/channing/undefined/3860da3/3.png" alt="3"></p>
+<p><img src="channing/undefined/3860da3/3.png" alt="3"></p>
 <p>运行正常</p>
 </li>
 <li><p>网上查找解决方案，修改xstartup后成功连接（xstartup从初始替换为上文的内容）</p>
@@ -389,11 +389,11 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros visualization.launch</span><br></pre></td></tr></table></figure>
 
 <h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><ul>
-<li>从机（电脑）<br><img src="/channing/channing/undefined/7c0ac4c/2.png" alt="2"></li>
+<li>从机（电脑）<br><img src="channing/undefined/7c0ac4c/2.png" alt="2"></li>
 </ul>
-<p><img src="/channing/channing/undefined/7c0ac4c/3.png" alt="3"></p>
+<p><img src="channing/undefined/7c0ac4c/3.png" alt="3"></p>
 <ul>
-<li>主机（树莓派）<br><img src="/channing/channing/undefined/7c0ac4c/1.png" alt="1"></li>
+<li>主机（树莓派）<br><img src="channing/undefined/7c0ac4c/1.png" alt="1"></li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li><p><strong>树莓派设为主机</strong>，运行roscore，PC设为从机</p>
@@ -502,7 +502,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_revo_lds.launch</span><br><span class="line">roslaunch rplidar_ros rplidar_s1.launch</span><br></pre></td></tr></table></figure>
 
 <p>可成功建图！</p>
-<p><img src="/channing/channing/undefined/2df70ee7/1.png" alt="1"></p>
+<p><img src="channing/undefined/2df70ee7/1.png" alt="1"></p>
 <h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><p>启动两个节点后报错</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ WARN] [1547742976.632357663]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">[ WARN] [1547742976.732944839]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">后面同样类型警告</span><br></pre></td></tr></table></figure>
 
@@ -752,12 +752,12 @@
 <h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ul>
 <li>运行上文命令报错（使用vnc远程连接树莓派执行命令）</li>
 </ul>
-<p><img src="/channing/channing/undefined/139799fb/1.png" alt="1"></p>
+<p><img src="channing/undefined/139799fb/1.png" alt="1"></p>
 <p>搜索后发现有众多原因可能造成该错误，有一个是说rviz配置文件出了问题，就是包里.rviz格式文件，这提醒我可能是输出图像受vnc连接无法传输，导致rviz报错。</p>
 <ul>
 <li>尝试用树莓派接显示器后直接运行命令</li>
 </ul>
-<p><img src="/channing/channing/undefined/139799fb/2.jpg" alt="2"></p>
+<p><img src="channing/undefined/139799fb/2.jpg" alt="2"></p>
 <p>  成功运行！</p>
 <ul>
 <li>下一步解决远程连接运行rviz问题</li>
@@ -977,18 +977,18 @@
 
       
           <h2 id="Ubuntu安装与配置"><a href="#Ubuntu安装与配置" class="headerlink" title="Ubuntu安装与配置"></a>Ubuntu安装与配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
-<li><p>使用树莓派镜像烧录程序<br><img src="/channing/channing/undefined/95b72f28/1.png" alt="1"></p>
+<li><p>使用树莓派镜像烧录程序<br><img src="channing/undefined/95b72f28/1.png" alt="1"></p>
 </li>
-<li><p>选择 other general purpose OS<br><img src="/channing/channing/undefined/95b72f28/2.png" alt="2"></p>
+<li><p>选择 other general purpose OS<br><img src="channing/undefined/95b72f28/2.png" alt="2"></p>
 </li>
-<li><p>选择Ubuntu<br><img src="/channing/channing/undefined/95b72f28/3.png" alt="3"></p>
+<li><p>选择Ubuntu<br><img src="channing/undefined/95b72f28/3.png" alt="3"></p>
 </li>
-<li><p>选择Ubuntu Server 20.04.4，注意是64bit版本<br><img src="/channing/channing/undefined/95b72f28/4.png" alt="4"></p>
+<li><p>选择Ubuntu Server 20.04.4，注意是64bit版本<br><img src="channing/undefined/95b72f28/4.png" alt="4"></p>
 </li>
 <li><p>配置系统</p>
 <p>账户：pi<br>密码：pi</p>
-<p><img src="/channing/channing/undefined/95b72f28/5.png" alt="5"></p>
-<p><img src="/channing/channing/undefined/95b72f28/6.png" alt="6"></p>
+<p><img src="channing/undefined/95b72f28/5.png" alt="5"></p>
+<p><img src="channing/undefined/95b72f28/6.png" alt="6"></p>
 </li>
 </ul>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
