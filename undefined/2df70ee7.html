@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"channing-prince.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. 修改revo_lds.lua文件在安装步骤都正确完成后，修改cartographer下的文件文件路径：~&#x2F;catkin_ws&#x2F;src&#x2F;cartographer_ros&#x2F;cartographer_ros&#x2F;configuration_files&#x2F;revo_lds.lua修改之前文件内容如下： 1234567891011121314151">
+<meta property="og:type" content="article">
+<meta property="og:title" content="思岚S1结合Cartographer建图">
+<meta property="og:url" content="https://channing-prince.github.io/channing/undefined/2df70ee7">
+<meta property="og:site_name" content="Channing">
+<meta property="og:description" content="1. 修改revo_lds.lua文件在安装步骤都正确完成后，修改cartographer下的文件文件路径：~&#x2F;catkin_ws&#x2F;src&#x2F;cartographer_ros&#x2F;cartographer_ros&#x2F;configuration_files&#x2F;revo_lds.lua修改之前文件内容如下： 1234567891011121314151">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://channing-prince.github.io/channing/undefined/2df70ee7/1.png">
+<meta property="article:published_time" content="2022-03-19T08:01:32.000Z">
+<meta property="article:modified_time" content="2022-03-19T08:15:57.912Z">
+<meta property="article:author" content="Channing Prince">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://channing-prince.github.io/channing/undefined/2df70ee7/1.png">
+
+<link rel="canonical" href="https://channing-prince.github.io/channing/undefined/2df70ee7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>思岚S1结合Cartographer建图 | Channing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Channing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">——学习后花园——</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/2df70ee7">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Channing Prince">
+      <meta itemprop="description" content="即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Channing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          思岚S1结合Cartographer建图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-19 16:01:32 / 修改时间：16:15:57" itemprop="dateCreated datePublished" datetime="2022-03-19T16:01:32+08:00">2022-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-修改revo-lds-lua文件"><a href="#1-修改revo-lds-lua文件" class="headerlink" title="1. 修改revo_lds.lua文件"></a>1. 修改revo_lds.lua文件</h3><p>在安装步骤都正确完成后，修改cartographer下的文件<br>文件路径：~&#x2F;catkin_ws&#x2F;src&#x2F;cartographer_ros&#x2F;cartographer_ros&#x2F;configuration_files&#x2F;revo_lds.lua<br>修改之前文件内容如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Copyright 2016 The Cartographer Authors</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></span><br><span class="line"><span class="comment">-- you may not use this file except in compliance with the License.</span></span><br><span class="line"><span class="comment">-- You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">--      http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment">-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></span><br><span class="line"><span class="comment">-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment">-- See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment">-- limitations under the License.</span></span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;map_builder.lua&quot;</span></span><br><span class="line">include <span class="string">&quot;trajectory_builder.lua&quot;</span></span><br><span class="line"></span><br><span class="line">options = &#123;</span><br><span class="line">  map_builder = MAP_BUILDER,</span><br><span class="line">  trajectory_builder = TRAJECTORY_BUILDER,</span><br><span class="line">  map_frame = <span class="string">&quot;map&quot;</span>,</span><br><span class="line">  tracking_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">  published_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">  odom_frame = <span class="string">&quot;odom&quot;</span>,</span><br><span class="line">  provide_odom_frame = <span class="literal">true</span>,</span><br><span class="line">  publish_frame_projected_to_2d = <span class="literal">false</span>,</span><br><span class="line">  use_pose_extrapolator = <span class="literal">true</span>,</span><br><span class="line">  use_odometry = <span class="literal">false</span>,</span><br><span class="line">  use_nav_sat = <span class="literal">false</span>,</span><br><span class="line">  use_landmarks = <span class="literal">false</span>,</span><br><span class="line">  num_laser_scans = <span class="number">1</span>,</span><br><span class="line">  num_multi_echo_laser_scans = <span class="number">0</span>,</span><br><span class="line">  num_subdivisions_per_laser_scan = <span class="number">1</span>,</span><br><span class="line">  num_point_clouds = <span class="number">0</span>,</span><br><span class="line">  lookup_transform_timeout_sec = <span class="number">0.2</span>,</span><br><span class="line">  submap_publish_period_sec = <span class="number">0.3</span>,</span><br><span class="line">  pose_publish_period_sec = <span class="number">5e-3</span>,</span><br><span class="line">  trajectory_publish_period_sec = <span class="number">30e-3</span>,</span><br><span class="line">  rangefinder_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  odometry_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  fixed_frame_pose_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  imu_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  landmarks_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MAP_BUILDER.use_trajectory_builder_2d = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">TRAJECTORY_BUILDER_2D.submaps.num_range_data = <span class="number">35</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.min_range = <span class="number">0.3</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.max_range = <span class="number">8.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.missing_data_ray_length = <span class="number">1.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.use_imu_data = <span class="literal">false</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = <span class="literal">true</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = <span class="number">0.1</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = <span class="number">10.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = <span class="number">1e-1</span></span><br><span class="line"></span><br><span class="line">POSE_GRAPH.optimization_problem.huber_scale = <span class="number">1e2</span></span><br><span class="line">POSE_GRAPH.optimize_every_n_nodes = <span class="number">35</span></span><br><span class="line">POSE_GRAPH.constraint_builder.min_score = <span class="number">0.65</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> options</span><br></pre></td></tr></table></figure>
+
+<p>只需要修改以下两句：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tracking_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">published_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>“horizontal_laser_link”，改为自己激光雷达的frame_id，我这里是laser，一般情况是laser，其余的不要动。</p>
+<p>将<code>horizontal_laser_link</code>改为<code>laser</code></p>
+<p><strong><u>Tips：在启动激光雷达时会有显示参数信息</u></strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">PARAMETERS</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rosdistro:</span> <span class="string">noetic</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rosversion:</span> <span class="number">1.15</span><span class="number">.14</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/angle_compensate:</span> <span class="literal">True</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/frame_id:</span> <span class="string">laser</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/inverted:</span> <span class="literal">False</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/serial_baudrate:</span> <span class="number">256000</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/serial_port:</span> <span class="string">/dev/rplidar</span></span><br></pre></td></tr></table></figure>
+
+<p>可以在这里看到<code>frame_id: laser</code></p>
+<h3 id="2-修改demo-revo-lds-launch文件"><a href="#2-修改demo-revo-lds-launch文件" class="headerlink" title="2. 修改demo_revo_lds.launch文件"></a>2. 修改demo_revo_lds.launch文件</h3><p>文件路径：</p>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/demo_revo_lds.launch</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;/use_sim_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--这里如果连接实体硬件，改为false，如果连接模拟器就不用改--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_directory $(find cartographer_ros)/configuration_files</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_basename revo_lds.lua&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;scan&quot;</span> <span class="attr">to</span>=<span class="string">&quot;scan&quot;</span> /&gt;</span>   </span><br><span class="line">    <span class="comment">&lt;!--horizontal_laser_2d改为scan，这里我的激光雷达发出的时scan单线话题--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-resolution 0.05&quot;</span> /&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">type</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">required</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">args</span>=<span class="string">&quot;-d $(find cartographer_ros)/configuration_files/demo_2d.rviz&quot;</span> /&gt;</span>   </span><br><span class="line">  <span class="comment">&lt;!--删除了一个rosbag play节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是我自己更改完成后的launch文件，代码中注释了三个需要改的地方，后两个是必须改的，第一个按需求修改。</p>
+<h3 id="3-修改demo-2d-rviz文件"><a href="#3-修改demo-2d-rviz文件" class="headerlink" title="3. 修改demo_2d.rviz文件"></a>3. 修改demo_2d.rviz文件</h3><p>各教程中并未出现此步骤，但确实遇到报错，若能正常运行，请忽略此步骤</p>
+<p>文件路径：</p>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/demo_2d.rviz</code></p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">139 </span>     Tracking frame: base_link</span><br></pre></td></tr></table></figure>
+
+<p>更改139行<code>base_link</code>为<code>laser</code></p>
+<p>详细请看下文 <em><strong>问题2</strong></em></p>
+<h3 id="4-运行"><a href="#4-运行" class="headerlink" title="4. 运行"></a>4. 运行</h3><p>更改后重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/catkin_ws$ catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+<p>再依次运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_revo_lds.launch</span><br><span class="line">roslaunch rplidar_ros rplidar_s1.launch</span><br></pre></td></tr></table></figure>
+
+<p>可成功建图！</p>
+<p><img src="/channing/undefined/2df70ee7/1.png" alt="1"></p>
+<h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><p>启动两个节点后报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ WARN] [1547742976.632357663]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">[ WARN] [1547742976.732944839]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">后面同样类型警告</span><br></pre></td></tr></table></figure>
+
+<p>参考<a target="_blank" rel="noopener" href="https://github.com/cartographer-project/cartographer_ros/issues/1164">这里</a></p>
+<p>在<code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/demo_revo_lds.launch</code> 中有一行参数</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;/use_sim_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里如果用模拟器的话要设置为<code>true</code>，使用仿真时间，但我用的是实体硬件，要改成<code>false</code></p>
+<p>重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><p>修改完上文错误后，出现新的报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ WARN] [1597135213.244415725]: Could not compute submap fading: &quot;base_link&quot; passed to lookupTransform argument source_frame does not exist.</span><br></pre></td></tr></table></figure>
+
+<p>参考链接<a target="_blank" rel="noopener" href="https://github.com/cartographer-project/cartographer_ros/issues/1503">https://github.com/cartographer-project/cartographer_ros/issues/1503</a></p>
+<p>这里是因为之前在<br><code>catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/revo_lds.lua</code>中更改这两条</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tracking_frame = <span class="string">&quot;laser&quot;</span>,</span><br><span class="line">published_frame = <span class="string">&quot;laser&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>将数据帧名改为<code>lazer</code>后，在<br><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/demo_2d.rviz</code>中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">139      Tracking frame: base_link</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>Tracking frame</code>并没有更改，更改后重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/catkin_ws$ catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+<p>再依次运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_revo_lds.launch</span><br><span class="line">roslaunch rplidar_ros rplidar_s1.launch</span><br></pre></td></tr></table></figure>
+
+<p>可成功建图！</p>
+<h2 id="猜想"><a href="#猜想" class="headerlink" title="猜想"></a>猜想</h2><ul>
+<li><p>浏览rplidar驱动包看到launch文件中有tcp相关的脚本，是否可以通过更改tcp ip，使得可以连接另一台安装了ros的系统，实现数据采集和建图分布式运行</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/715900565217265525.html">https://zhidao.baidu.com/question/715900565217265525.html</a> 有个比较模糊的回答，大概思路理解，还需要实践</p>
+</li>
+<li><p>参考<a target="_blank" rel="noopener" href="https://medium.com/robotics-weekends/2d-mapping-using-google-cartographer-and-rplidar-with-raspberry-pi-a94ce11e44c5">https://medium.com/robotics-weekends/2d-mapping-using-google-cartographer-and-rplidar-with-raspberry-pi-a94ce11e44c5</a></p>
+<p>该文章讲述了树莓派搭3b+载A1激光雷达配置全过程，并且建图帧率达到31帧，他采用的是建图算法跑在树莓派，但是将可视化端放在电脑端运行</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/undefined/3235be8" rel="prev" title="安装建图算法Cartographer">
+      <i class="fa fa-chevron-left"></i> 安装建图算法Cartographer
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/undefined/7c0ac4c" rel="next" title="ROS节点多机通讯">
+      ROS节点多机通讯 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9revo-lds-lua%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1. 修改revo_lds.lua文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9demo-revo-lds-launch%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2. 修改demo_revo_lds.launch文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%AE%E6%94%B9demo-2d-rviz%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3. 修改demo_2d.rviz文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%BF%90%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">4. 运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%981"><span class="nav-number">5.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%982"><span class="nav-number">6.</span> <span class="nav-text">问题2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E6%83%B3"><span class="nav-number"></span> <span class="nav-text">猜想</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Channing Prince</p>
+  <div class="site-description" itemprop="description">即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Channing Prince</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

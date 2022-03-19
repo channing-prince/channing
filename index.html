@@ -158,6 +158,523 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/3860da3">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Channing Prince">
+      <meta itemprop="description" content="即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Channing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/undefined/3860da3" class="post-title-link" itemprop="url">Ubuntu安装配置vnc 连接</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-19 16:37:27 / 修改时间：16:42:28" itemprop="dateCreated datePublished" datetime="2022-03-19T16:37:27+08:00">2022-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">更新</span></span><br><span class="line">apt update</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装桌面环境</span></span><br><span class="line">sudo apt install xfce4 xfce4-goodies</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装vncserver</span></span><br><span class="line">apt install tightvncserver</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动vncserver</span></span><br><span class="line">vncserver</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭vncserver ：1窗口</span></span><br><span class="line">vncserver -kill :1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份原来的配置文件</span></span><br><span class="line">mv ~/.vnc/xstartup ~/.vnc/xstartup.bak</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编辑新的配置文件</span></span><br><span class="line">sudo nano ~/.vnc/xstartup</span><br></pre></td></tr></table></figure>
+
+<p>在xstartup中更新内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Uncomment the following two lines <span class="keyword">for</span> normal desktop:</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">unset</span> SESSION_MANAGER</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">exec</span> /etc/X11/xinit/xinitrc</span></span><br><span class="line"></span><br><span class="line">dbus-launch startxfce4</span><br><span class="line"></span><br><span class="line">[ -x /etc/vnc/xstartup ] &amp;&amp; exec /etc/vnc/xstartup</span><br><span class="line">[ -r $HOME/.Xresources ] &amp;&amp; xrdb $HOME/.Xresources</span><br><span class="line">xsetroot -solid grey</span><br><span class="line">vncconfig -iconic &amp;</span><br><span class="line">x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;</span><br><span class="line">x-window-manager &amp;</span><br><span class="line">xrdb $HOME/.Xresources</span><br></pre></td></tr></table></figure>
+
+<p>重启vncserver后可连接桌面</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vncserver</span> -kill :<span class="number">1</span></span><br><span class="line"><span class="attribute">vncserver</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/channing/undefined/3860da3/1.png" alt="1"></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在刚开始配置好后发现连接不上，进行问题排查</p>
+<ul>
+<li><p>检查端口占用情况<br><code>netstat -lp|grep -i vnc</code></p>
+<p><img src="/channing/undefined/3860da3/2.png" alt="2"></p>
+<p>端口监听正常，启动了两个桌面实例，这里也有两个对应的5901和5902端口监听</p>
+</li>
+<li><p>检查xface运行状况</p>
+<p><code>ps -A | grep xfce4</code></p>
+<p><img src="/channing/undefined/3860da3/3.png" alt="3"></p>
+<p>运行正常</p>
+</li>
+<li><p>网上查找解决方案，修改xstartup后成功连接（xstartup从初始替换为上文的内容）</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/7c0ac4c">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Channing Prince">
+      <meta itemprop="description" content="即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Channing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/undefined/7c0ac4c" class="post-title-link" itemprop="url">ROS节点多机通讯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-19 16:17:59 / 修改时间：16:34:23" itemprop="dateCreated datePublished" datetime="2022-03-19T16:17:59+08:00">2022-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="证实猜想"><a href="#证实猜想" class="headerlink" title="证实猜想"></a>证实猜想</h2><p>之前有写是否能分布式运行的猜想，找到了一篇相关的文章，实际上就是ROS节点的多机通讯</p>
+<p>参考<a target="_blank" rel="noopener" href="https://medium.com/robotics-weekends/2d-mapping-using-google-cartographer-and-rplidar-with-raspberry-pi-a94ce11e44c5">这篇文章</a></p>
+<p>该文章讲述了树莓派搭3b+载A1激光雷达配置全过程，并且建图帧率达到31帧，他采用的是建图算法跑在树莓派，但是将可视化端放在电脑端运行，也证明了树莓派有足够算力进行建图工作。</p>
+<h4 id="成功实现rviz显示与cartographer建图分布式运行！"><a href="#成功实现rviz显示与cartographer建图分布式运行！" class="headerlink" title="成功实现rviz显示与cartographer建图分布式运行！"></a><strong>成功实现rviz显示与cartographer建图分布式运行！</strong></h4><p>我这里采用树莓派为<strong>主机</strong>，电脑为<strong>从机</strong>显示rviz</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h4 id="这一步可以不设置，但后面主机名都需要用具体IP代替"><a href="#这一步可以不设置，但后面主机名都需要用具体IP代替" class="headerlink" title="这一步可以不设置，但后面主机名都需要用具体IP代替"></a><u><strong>这一步可以不设置，但后面主机名都需要用具体IP代替</strong></u></h4><p>多数文章讲到更改<code>/etc/hosts</code>，设置主机从机IP与名字，这样设置在以后的配置文件更改和测试会方便很多</p>
+<ul>
+<li><strong>从机上</strong>设置IP与名字</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.124.75 carto #主机IP与自己想设置的名字</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>主机上</strong>设置IP与名字</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.124.72 pi #从机IP与自己想设置的名字</span><br></pre></td></tr></table></figure>
+
+<p>设置完成后进行ping测试</p>
+<ul>
+<li>主机</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping pi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从机</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping carto</span><br></pre></td></tr></table></figure>
+
+<p>根据ROS<a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/NetworkSetup#Name_resolution">官网描述</a>，单ping通不一定能保证连接，ping只看ICMP包能不能通， 可以用<code>netcat</code>检查，一定要选择大于 1024 的端口；低于 1024 的端口需要超级用户权限。请注意，<code>netcat</code>可执行文件在某些发行版上可能被命名为<code>nc </code></p>
+<ul>
+<li>主机</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> pi</span><br><span class="line"><span class="attribute">netcat</span> -l <span class="number">1234</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> carto</span><br><span class="line"><span class="attribute">netcat</span> pi <span class="number">1234</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从机也如法炮制</li>
+</ul>
+<h2 id="设置ROS-MASTER-URI和ROS-IP-ROS-HOSTNAME"><a href="#设置ROS-MASTER-URI和ROS-IP-ROS-HOSTNAME" class="headerlink" title="设置ROS_MASTER_URI和ROS_IP/ROS_HOSTNAME"></a>设置<code>ROS_MASTER_URI</code>和<code>ROS_IP/ROS_HOSTNAME</code></h2><p>关于这两个参数详细说明请<a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/EnvironmentVariables#ROS_IP.2FROS_HOSTNAME">看这里</a></p>
+<ul>
+<li>ROS_MASTER_URI</li>
+</ul>
+<p>在<strong>从机</strong>和<strong>主机</strong>都上运行：<br>注意替换主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;export ROS_MASTER_URI=http://pi:11311&quot;&gt;&gt;~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ROS_IP&#x2F;ROS_HOSTNAME</li>
+</ul>
+<p>这两个只需要设置其中一个，如果两个都设置，那么<code>ROS_HOSTNAME</code>会被优先使用</p>
+<p>因为上文已经设置了主机名，所以</p>
+<p>在<strong>从机</strong>上运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;export ROS_HOSTNAME=pi&quot;&gt;&gt;~/.bashrc</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>主机启动<code>roscore</code>和<code>rplidar</code>节点后，从机rviz没有画面输出，但正常启动rviz，没有报错输出</p>
+<p>检查：</p>
+<ul>
+<li>是否互相ping通</li>
+</ul>
+<p>可正常ping通，ssh也正常连接</p>
+<ul>
+<li><code>ROS_IP/ROS_HOSTNAME</code>和<code>ROS_MASTER_URI</code>是否设置正确</li>
+</ul>
+<p>已正确设置</p>
+<ul>
+<li>查看节点信息：<code>rostopic list</code></li>
+</ul>
+<p>在<strong>主机</strong>可查看节点信息，在<strong>从机</strong>报错：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>Unable to communicate with master!</span><br></pre></td></tr></table></figure>
+
+<p>说明<strong>从机</strong>未连接上<strong>主机</strong></p>
+<p>这个<a target="_blank" rel="noopener" href="https://gitee.com/leiyunfei/rosyuanchenglianjiemaster">文章</a>讲到<strong>从机</strong>的bashrc中<code>ROS_IP/ROS_HOSTNAME</code>和<code>ROS_MASTER_URI</code>都要填<strong>主机</strong>的名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">从机上设置</span></span><br><span class="line">export ROS_MASTER_URI=http://pi:11311 #11311是默认ROS端口</span><br><span class="line">export ROS_HOSTNAME=pi</span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>修改后</p>
+<p>两机都可<code>rostopic list</code>显示节点信息，说明正确连接</p>
+<p>但依旧没有正常显示画面，经检查，<strong>从机</strong>的launch文件有问题，修改后正常运行</p>
+<h2 id="我的launch文件"><a href="#我的launch文件" class="headerlink" title="我的launch文件"></a>我的launch文件</h2><ul>
+<li>从机节点：启动rviz</li>
+</ul>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/visualization.launch</code> </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Start RViz with custom view --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">type</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">required</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">args</span>=<span class="string">&quot;-d $(find cartographer_ros)/configuration_files/demo_2d.rviz&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>主机节点：启动雷达与cartographer算法节点</li>
+</ul>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/rplidar+carto.launch</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;/use_sim_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Start Google Cartographer node with custom configuration file--&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_directory $(find cartographer_ros)/configuration_files</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_basename revo_lds.lua&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;scan&quot;</span> <span class="attr">to</span>=<span class="string">&quot;scan&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-resolution 0.05&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Start RPLIDAR sensor node which provides LaserScan data  --&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;rplidarNode&quot;</span>          <span class="attr">pkg</span>=<span class="string">&quot;rplidar_ros&quot;</span>  <span class="attr">type</span>=<span class="string">&quot;rplidarNode&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;serial_port&quot;</span>         <span class="attr">type</span>=<span class="string">&quot;string&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/dev/rplidar&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;serial_baudrate&quot;</span>     <span class="attr">type</span>=<span class="string">&quot;int&quot;</span>    <span class="attr">value</span>=<span class="string">&quot;256000&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;frame_id&quot;</span>            <span class="attr">type</span>=<span class="string">&quot;string&quot;</span> <span class="attr">value</span>=<span class="string">&quot;laser&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;inverted&quot;</span>            <span class="attr">type</span>=<span class="string">&quot;bool&quot;</span>   <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;angle_compensate&quot;</span>    <span class="attr">type</span>=<span class="string">&quot;bool&quot;</span>   <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更改完成后要重新编译</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/catkin_ws</span><br><span class="line">catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><ul>
+<li>主机</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">打开新的shell后</span></span><br><span class="line">roslaunch cartographer_ros rplidar+carto.launch</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从机</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros visualization.launch</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><ul>
+<li><p>从机（电脑）<br><img src="/channing/undefined/7c0ac4c/2.png" alt="2"><br><img src="/channing/undefined/7c0ac4c/3.png" alt="3"></p>
+</li>
+<li><p>主机（树莓派）<br><img src="/channing/undefined/7c0ac4c/1.png" alt="1"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p><strong>树莓派设为主机</strong>，运行roscore，PC设为从机</p>
+</li>
+<li><p>只能有一个<code>roscore</code>在运行，且<code>roscore</code>只能在设定的主机运行</p>
+</li>
+<li><p>分别在各自的 <code>/etc/hosts</code> 文件中添加对方的 IP 和 name </p>
+</li>
+<li><p>从机要在<code>~/.bashrc</code>加两条 ，主机只要加一条</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">从机设置</span></span><br><span class="line">export ROS_MASTER_URI=http://pi:11311 #11311是默认ROS端口</span><br><span class="line">export ROS_HOSTNAME=pi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机设置</span></span><br><span class="line">export ROS_MASTER_URI=http://pi:11311 #11311是默认ROS端口</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>两边运行后，<code>rostopic list</code>可以看运行的所有节点，可以测试连接情况</p>
+</li>
+</ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/SIR_wkp/article/details/99752477">最简版 ros 联机设置</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43481884/article/details/108895044">ROS多机通讯（unable to communicate with master 解决）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hehedadaq/article/details/82898307">ros分布式多机通信完整教程</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/2df70ee7">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Channing Prince">
+      <meta itemprop="description" content="即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Channing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/undefined/2df70ee7" class="post-title-link" itemprop="url">思岚S1结合Cartographer建图</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-19 16:01:32 / 修改时间：16:15:57" itemprop="dateCreated datePublished" datetime="2022-03-19T16:01:32+08:00">2022-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-修改revo-lds-lua文件"><a href="#1-修改revo-lds-lua文件" class="headerlink" title="1. 修改revo_lds.lua文件"></a>1. 修改revo_lds.lua文件</h3><p>在安装步骤都正确完成后，修改cartographer下的文件<br>文件路径：~&#x2F;catkin_ws&#x2F;src&#x2F;cartographer_ros&#x2F;cartographer_ros&#x2F;configuration_files&#x2F;revo_lds.lua<br>修改之前文件内容如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Copyright 2016 The Cartographer Authors</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></span><br><span class="line"><span class="comment">-- you may not use this file except in compliance with the License.</span></span><br><span class="line"><span class="comment">-- You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">--      http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">-- Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment">-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></span><br><span class="line"><span class="comment">-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment">-- See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment">-- limitations under the License.</span></span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;map_builder.lua&quot;</span></span><br><span class="line">include <span class="string">&quot;trajectory_builder.lua&quot;</span></span><br><span class="line"></span><br><span class="line">options = &#123;</span><br><span class="line">  map_builder = MAP_BUILDER,</span><br><span class="line">  trajectory_builder = TRAJECTORY_BUILDER,</span><br><span class="line">  map_frame = <span class="string">&quot;map&quot;</span>,</span><br><span class="line">  tracking_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">  published_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">  odom_frame = <span class="string">&quot;odom&quot;</span>,</span><br><span class="line">  provide_odom_frame = <span class="literal">true</span>,</span><br><span class="line">  publish_frame_projected_to_2d = <span class="literal">false</span>,</span><br><span class="line">  use_pose_extrapolator = <span class="literal">true</span>,</span><br><span class="line">  use_odometry = <span class="literal">false</span>,</span><br><span class="line">  use_nav_sat = <span class="literal">false</span>,</span><br><span class="line">  use_landmarks = <span class="literal">false</span>,</span><br><span class="line">  num_laser_scans = <span class="number">1</span>,</span><br><span class="line">  num_multi_echo_laser_scans = <span class="number">0</span>,</span><br><span class="line">  num_subdivisions_per_laser_scan = <span class="number">1</span>,</span><br><span class="line">  num_point_clouds = <span class="number">0</span>,</span><br><span class="line">  lookup_transform_timeout_sec = <span class="number">0.2</span>,</span><br><span class="line">  submap_publish_period_sec = <span class="number">0.3</span>,</span><br><span class="line">  pose_publish_period_sec = <span class="number">5e-3</span>,</span><br><span class="line">  trajectory_publish_period_sec = <span class="number">30e-3</span>,</span><br><span class="line">  rangefinder_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  odometry_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  fixed_frame_pose_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  imu_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">  landmarks_sampling_ratio = <span class="number">1.</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MAP_BUILDER.use_trajectory_builder_2d = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">TRAJECTORY_BUILDER_2D.submaps.num_range_data = <span class="number">35</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.min_range = <span class="number">0.3</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.max_range = <span class="number">8.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.missing_data_ray_length = <span class="number">1.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.use_imu_data = <span class="literal">false</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = <span class="literal">true</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = <span class="number">0.1</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = <span class="number">10.</span></span><br><span class="line">TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = <span class="number">1e-1</span></span><br><span class="line"></span><br><span class="line">POSE_GRAPH.optimization_problem.huber_scale = <span class="number">1e2</span></span><br><span class="line">POSE_GRAPH.optimize_every_n_nodes = <span class="number">35</span></span><br><span class="line">POSE_GRAPH.constraint_builder.min_score = <span class="number">0.65</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> options</span><br></pre></td></tr></table></figure>
+
+<p>只需要修改以下两句：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tracking_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br><span class="line">published_frame = <span class="string">&quot;horizontal_laser_link&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>“horizontal_laser_link”，改为自己激光雷达的frame_id，我这里是laser，一般情况是laser，其余的不要动。</p>
+<p>将<code>horizontal_laser_link</code>改为<code>laser</code></p>
+<p><strong><u>Tips：在启动激光雷达时会有显示参数信息</u></strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">PARAMETERS</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rosdistro:</span> <span class="string">noetic</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rosversion:</span> <span class="number">1.15</span><span class="number">.14</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/angle_compensate:</span> <span class="literal">True</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/frame_id:</span> <span class="string">laser</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/inverted:</span> <span class="literal">False</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/serial_baudrate:</span> <span class="number">256000</span></span><br><span class="line"> <span class="string">*</span> <span class="string">/rplidarNode/serial_port:</span> <span class="string">/dev/rplidar</span></span><br></pre></td></tr></table></figure>
+
+<p>可以在这里看到<code>frame_id: laser</code></p>
+<h3 id="2-修改demo-revo-lds-launch文件"><a href="#2-修改demo-revo-lds-launch文件" class="headerlink" title="2. 修改demo_revo_lds.launch文件"></a>2. 修改demo_revo_lds.launch文件</h3><p>文件路径：</p>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/demo_revo_lds.launch</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;/use_sim_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--这里如果连接实体硬件，改为false，如果连接模拟器就不用改--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_directory $(find cartographer_ros)/configuration_files</span></span></span><br><span class="line"><span class="string"><span class="tag">          -configuration_basename revo_lds.lua&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;scan&quot;</span> <span class="attr">to</span>=<span class="string">&quot;scan&quot;</span> /&gt;</span>   </span><br><span class="line">    <span class="comment">&lt;!--horizontal_laser_2d改为scan，这里我的激光雷达发出的时scan单线话题--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;cartographer_ros&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">type</span>=<span class="string">&quot;cartographer_occupancy_grid_node&quot;</span> <span class="attr">args</span>=<span class="string">&quot;-resolution 0.05&quot;</span> /&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">type</span>=<span class="string">&quot;rviz&quot;</span> <span class="attr">required</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">args</span>=<span class="string">&quot;-d $(find cartographer_ros)/configuration_files/demo_2d.rviz&quot;</span> /&gt;</span>   </span><br><span class="line">  <span class="comment">&lt;!--删除了一个rosbag play节点--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是我自己更改完成后的launch文件，代码中注释了三个需要改的地方，后两个是必须改的，第一个按需求修改。</p>
+<h3 id="3-修改demo-2d-rviz文件"><a href="#3-修改demo-2d-rviz文件" class="headerlink" title="3. 修改demo_2d.rviz文件"></a>3. 修改demo_2d.rviz文件</h3><p>各教程中并未出现此步骤，但确实遇到报错，若能正常运行，请忽略此步骤</p>
+<p>文件路径：</p>
+<p><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/demo_2d.rviz</code></p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">139 </span>     Tracking frame: base_link</span><br></pre></td></tr></table></figure>
+
+<p>更改139行<code>base_link</code>为<code>laser</code></p>
+<p>详细请看下文 <em><strong>问题2</strong></em></p>
+<h3 id="4-运行"><a href="#4-运行" class="headerlink" title="4. 运行"></a>4. 运行</h3><p>更改后重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/catkin_ws$ catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+<p>再依次运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_revo_lds.launch</span><br><span class="line">roslaunch rplidar_ros rplidar_s1.launch</span><br></pre></td></tr></table></figure>
+
+<p>可成功建图！</p>
+<p><img src="/channing/undefined/2df70ee7/1.png" alt="1"></p>
+<h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><p>启动两个节点后报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ WARN] [1547742976.632357663]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">[ WARN] [1547742976.732944839]: W0118 00:36:16.000000 27818 sensor_bridge.cc:207] Ignored subdivision of a LaserScan message from sensor scan because previous subdivision time 621355968000000000 is not before current subdivision time 621355968000000000</span><br><span class="line">后面同样类型警告</span><br></pre></td></tr></table></figure>
+
+<p>参考<a target="_blank" rel="noopener" href="https://github.com/cartographer-project/cartographer_ros/issues/1164">这里</a></p>
+<p>在<code>~/catkin_ws/src/cartographer_ros/cartographer_ros/launch/demo_revo_lds.launch</code> 中有一行参数</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;/use_sim_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里如果用模拟器的话要设置为<code>true</code>，使用仿真时间，但我用的是实体硬件，要改成<code>false</code></p>
+<p>重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><p>修改完上文错误后，出现新的报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ WARN] [1597135213.244415725]: Could not compute submap fading: &quot;base_link&quot; passed to lookupTransform argument source_frame does not exist.</span><br></pre></td></tr></table></figure>
+
+<p>参考链接<a target="_blank" rel="noopener" href="https://github.com/cartographer-project/cartographer_ros/issues/1503">https://github.com/cartographer-project/cartographer_ros/issues/1503</a></p>
+<p>这里是因为之前在<br><code>catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/revo_lds.lua</code>中更改这两条</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tracking_frame = <span class="string">&quot;laser&quot;</span>,</span><br><span class="line">published_frame = <span class="string">&quot;laser&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>将数据帧名改为<code>lazer</code>后，在<br><code>~/catkin_ws/src/cartographer_ros/cartographer_ros/configuration_files/demo_2d.rviz</code>中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">139      Tracking frame: base_link</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>Tracking frame</code>并没有更改，更改后重新编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/catkin_ws$ catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+<p>再依次运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_revo_lds.launch</span><br><span class="line">roslaunch rplidar_ros rplidar_s1.launch</span><br></pre></td></tr></table></figure>
+
+<p>可成功建图！</p>
+<h2 id="猜想"><a href="#猜想" class="headerlink" title="猜想"></a>猜想</h2><ul>
+<li><p>浏览rplidar驱动包看到launch文件中有tcp相关的脚本，是否可以通过更改tcp ip，使得可以连接另一台安装了ros的系统，实现数据采集和建图分布式运行</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/715900565217265525.html">https://zhidao.baidu.com/question/715900565217265525.html</a> 有个比较模糊的回答，大概思路理解，还需要实践</p>
+</li>
+<li><p>参考<a target="_blank" rel="noopener" href="https://medium.com/robotics-weekends/2d-mapping-using-google-cartographer-and-rplidar-with-raspberry-pi-a94ce11e44c5">https://medium.com/robotics-weekends/2d-mapping-using-google-cartographer-and-rplidar-with-raspberry-pi-a94ce11e44c5</a></p>
+<p>该文章讲述了树莓派搭3b+载A1激光雷达配置全过程，并且建图帧率达到31帧，他采用的是建图算法跑在树莓派，但是将可视化端放在电脑端运行</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/3235be8">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Channing Prince">
+      <meta itemprop="description" content="即便面临神的蹂躏 也绝不能放弃 自己的征途 亲自去开辟吧！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Channing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/undefined/3235be8" class="post-title-link" itemprop="url">安装建图算法Cartographer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-19 14:32:31 / 修改时间：16:01:43" itemprop="dateCreated datePublished" datetime="2022-03-19T14:32:31+08:00">2022-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>有问题多百度，百度不行就Google</p>
+</blockquote>
+<h2 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0.写在前面"></a>0.写在前面</h2><p>系统：Ubuntu20.04</p>
+<p>ROS版本：Noetic</p>
+<p>官方链接：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//g</span>oogle-cartographer.readthedocs.io<span class="regexp">/en/</span>latest/index.html<span class="comment">#</span></span><br><span class="line">https:<span class="regexp">//g</span>oogle-cartographer-ros.readthedocs.io<span class="regexp">/en/</span>latest/compilation.html</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>blog.csdn.net<span class="regexp">/weixin_44684139/</span>article<span class="regexp">/details/</span><span class="number">104708387</span></span><br><span class="line">https:<span class="regexp">//</span>blog.csdn.net<span class="regexp">/yqziqian2/</span>article<span class="regexp">/details/</span><span class="number">118100338</span></span><br><span class="line">https:<span class="regexp">//</span>blog.csdn.net<span class="regexp">/weixin_42156097/</span>article<span class="regexp">/details/</span><span class="number">112374841</span></span><br></pre></td></tr></table></figure>
+
+<p>几个参考链接基本都关于网速慢，github连接不上，protobuf3安装三大问题讨论，由于我使用了vpn代理，并没有遇到网络问题，protobuf3在执行官方脚本时已安装好且路径没有问题。</p>
+<p>Tips：官网代码中每个块是个独立部分，每运行完一个块，可能路径还停留在某个包里，要重置下当前所在目录<br><code>cd ~</code></p>
+<h3 id="1-安装依赖"><a href="#1-安装依赖" class="headerlink" title="1. 安装依赖"></a>1. 安装依赖</h3><p>官网原文复制：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Install the required libraries that are available as debs.</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y \</span><br><span class="line">    clang \</span><br><span class="line">    cmake \</span><br><span class="line">    g++ \</span><br><span class="line">    git \</span><br><span class="line">    google-mock \</span><br><span class="line">    libboost-all-dev \</span><br><span class="line">    libcairo2-dev \</span><br><span class="line">    libcurl4-openssl-dev \</span><br><span class="line">    libeigen3-dev \</span><br><span class="line">    libgflags-dev \</span><br><span class="line">    libgoogle-glog-dev \</span><br><span class="line">    liblua5.2-dev \</span><br><span class="line">    libsuitesparse-dev \</span><br><span class="line">    lsb-release \</span><br><span class="line">    ninja-build \</span><br><span class="line">    stow</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Install Ceres Solver and Protocol Buffers support <span class="keyword">if</span> available.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">No need to build it ourselves.</span></span><br><span class="line">if [[ &quot;$(lsb_release -sc)&quot; = &quot;focal&quot; || &quot;$(lsb_release -sc)&quot; = &quot;buster&quot; ]]</span><br><span class="line">then</span><br><span class="line">  sudo apt-get install -y python3-sphinx libgmock-dev libceres-dev protobuf-compiler</span><br><span class="line">else</span><br><span class="line">  sudo apt-get install -y python-sphinx</span><br><span class="line">  if [[ &quot;$(lsb_release -sc)&quot; = &quot;bionic&quot; ]]</span><br><span class="line">  then</span><br><span class="line">    sudo apt-get install -y libceres-dev</span><br><span class="line">  fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/abseil/abseil-cpp.git</span><br><span class="line">cd abseil-cpp</span><br><span class="line">git checkout d902eb869bcfacc1bad14933ed9af4bed006d481</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -G Ninja \</span><br><span class="line">  -DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \</span><br><span class="line">  -DCMAKE_INSTALL_PREFIX=/usr/local/stow/absl \</span><br><span class="line">  ..</span><br><span class="line">ninja</span><br><span class="line">sudo ninja install</span><br><span class="line">cd /usr/local/stow</span><br><span class="line">sudo stow absl</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">VERSION=&quot;1.13.0&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Build and install Ceres.</span></span><br><span class="line">git clone https://ceres-solver.googlesource.com/ceres-solver</span><br><span class="line">cd ceres-solver</span><br><span class="line">git checkout tags/$&#123;VERSION&#125;</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake .. -G Ninja -DCXX11=ON</span><br><span class="line">ninja</span><br><span class="line">CTEST_OUTPUT_ON_FAILURE=1 ninja test</span><br><span class="line">sudo ninja install</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">VERSION=&quot;v3.4.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Build and install proto3.</span></span><br><span class="line">git clone https://github.com/google/protobuf.git</span><br><span class="line">cd protobuf</span><br><span class="line">git checkout tags/$&#123;VERSION&#125;</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -G Ninja \</span><br><span class="line">  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \</span><br><span class="line">  -DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">  -Dprotobuf_BUILD_TESTS=OFF \</span><br><span class="line">  ../cmake</span><br><span class="line">ninja</span><br><span class="line">sudo ninja install</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装Cartographer"><a href="#2-安装Cartographer" class="headerlink" title="2.安装Cartographer"></a>2.安装Cartographer</h3><ul>
+<li>注意官网注释，不要全复制</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Ubuntu Focal（Ubuntu20）</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y python3-wstool python3-rosdep ninja-build stow</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">老版Ubuntu</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y python-wstool python-rosdep ninja-build stow</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装完成后，在catkin_ws中新建cartographer_ros工作区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以建新的包放cartographer，如果有了catkin_ws，可以忽略第一句</span></span><br><span class="line">mkdir catkin_ws</span><br><span class="line">cd catkin_ws</span><br><span class="line">wstool init src</span><br><span class="line">wstool merge -t src https://raw.githubusercontent.com/cartographer-project/cartographer_ros/master/cartographer_ros.rosinstall</span><br><span class="line">wstool update -t src</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rosdep init</span><br><span class="line">rosdep update</span><br><span class="line">rosdep install --from-paths src --ignore-src --rosdistro=$&#123;ROS_DISTRO&#125; -y</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">只在 Ubuntu 16 或 ROS Kinetic上运行: src/cartographer/scripts/install_proto3.sh</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">src/cartographer/scripts/install_abseil.sh</span><br><span class="line">sudo apt-get remove ros-$&#123;ROS_DISTRO&#125;-abseil-cpp</span><br><span class="line">catkin_make_isolated --install --use-ninja</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-运行"><a href="#3-运行" class="headerlink" title="3.运行"></a>3.运行</h3><ul>
+<li>下载官方数据：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2D包</span></span><br><span class="line">wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_2d/cartographer_paper_deutsches_museum.bag</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">3D包</span></span><br><span class="line">wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_3d/with_intensities/b3-2016-04-05-14-14-00.bag</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>source一下</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/catkin_ws</span><br><span class="line">source install_isolated/setup.sh </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>测试运行</p>
+<p>Tpis：这里跑的是官方的数据包,德意志博物馆的建图数据</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch cartographer_ros demo_backpack_2d.launch bag_filename:=$&#123;HOME&#125;/Downloads/cartographer_paper_deutsches_museum.bag</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-问题"><a href="#4-问题" class="headerlink" title="4.问题"></a>4.问题</h3><p>每次在ROS中catkin_make后都找不到node，要把node从某个文件夹中拷贝出来再放到src&#x2F;包名中才能运行</p>
+<p>已解决    </p>
+<p>原因是没有将编译后的文件加入环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看在环境变量中的ROS</span></span><br><span class="line">echo $ROS_PACKAGE_PATH</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">没有编译后node节点所在的环境变量，添加环境变量</span></span><br><span class="line">echo &quot;source ~/catkin_ws/install_isolated/setup.bash&quot; &gt;&gt;~/.bashrc</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">更新<span class="built_in">source</span></span></span><br><span class="line">source ~/.bashrc</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">再查看环境变量，已经存在，可以正常运行</span></span><br><span class="line">echo $ROS_PACKAGE_PATH</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://channing-prince.github.io/channing/undefined/139799fb">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -569,7 +1086,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
